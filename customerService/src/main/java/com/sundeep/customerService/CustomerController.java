@@ -21,26 +21,26 @@ public class CustomerController {
 	private CustomerDataChangePublisher customerDataChangePublisher;
 	
 	@RequestMapping("/getCustomerList")
-	public ModelAndView getCarList(ModelAndView modelAndView) {
+	public ModelAndView getCustomerList(ModelAndView modelAndView) {
 		modelAndView.addObject("customerList", customerRepository.findAll());
 		modelAndView.setViewName("index");
 		return modelAndView;
 	}
 	
 	@RequestMapping("/addCustomerForm")
-	public ModelAndView addCarForm(ModelAndView modelAndView) {
+	public ModelAndView addCustomerForm(ModelAndView modelAndView) {
 		modelAndView.setViewName("addCustomerForm");
 		return modelAndView;
 	}
 	
 	@RequestMapping("/addCustomer")
-	public ModelAndView addCar(@ModelAttribute Customer customer, ModelAndView modelAndView, HttpSession session) {
+	public ModelAndView addCustomer(@ModelAttribute Customer customer, ModelAndView modelAndView, HttpSession session) {
 		customerRepository.save(customer);
 		return getCarList(modelAndView);
 	}
 	
 	@RequestMapping("/deleteCustomer")
-	public ModelAndView deleteCar(@RequestParam Integer id, ModelAndView modelAndView) {
+	public ModelAndView deleteCustomer(@RequestParam Integer id, ModelAndView modelAndView) {
 		customerRepository.delete(id);
 		customerDataChangePublisher.sendDeleteCustomerMessage(id);
 		return getCarList(modelAndView);
@@ -48,7 +48,7 @@ public class CustomerController {
 	
 	@RequestMapping("/*")
 	public ModelAndView defaultView(ModelAndView modelAndView) {
-		return getCarList(modelAndView);
+		return getCustomerList(modelAndView);
 	}
 	
 
